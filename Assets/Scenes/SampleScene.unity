@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 476911807}
   - component: {fileID: 476911806}
   - component: {fileID: 476911808}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: floor
   m_Icon: {fileID: 0}
@@ -1525,9 +1525,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 293554015351505217, guid: 91aff348ea045fc4da8940d3d4e869ee, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 520552045788563685, guid: 91aff348ea045fc4da8940d3d4e869ee, type: 3}
       propertyPath: m_Name
       value: character_berie
+      objectReference: {fileID: 0}
+    - target: {fileID: 520552045788563685, guid: 91aff348ea045fc4da8940d3d4e869ee, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520552045788563685, guid: 91aff348ea045fc4da8940d3d4e869ee, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3710520464074710599, guid: 91aff348ea045fc4da8940d3d4e869ee, type: 3}
       propertyPath: m_LocalPosition.x
