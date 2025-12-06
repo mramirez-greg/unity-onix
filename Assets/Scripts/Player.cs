@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // esto es para saber siestsi estoy en el piso
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
     }
 }
