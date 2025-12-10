@@ -6,6 +6,7 @@ TagManager:
   tags:
   - floor
   - Coin
+  - Spikes
   layers:
   - Default
   - TransparentFX
