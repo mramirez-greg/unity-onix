@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-   public Transform target;
+    public Transform target;
 
-   private void LateUpdate()
+    private void LateUpdate()
     {
-        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        transform.position = new Vector3 (target.position.x, target.position.y, transform.position.z);
+
     }
 }
