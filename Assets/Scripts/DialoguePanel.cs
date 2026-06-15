@@ -24,6 +24,21 @@ public class DialoguePanel : MonoBehaviour
     [Tooltip("Texto opcional del nombre de quien habla (puede quedar vacío).")]
     public TMP_Text speakerText;
 
+    [Header("Retrato del personaje (opcional)")]
+    [Tooltip("Imagen donde se muestra el retrato de quien habla. Si queda vacía, no hay retrato.")]
+    public Image portraitImage;
+
+    [Tooltip("Tabla de retratos: a cada nombre de speaker (Kiwi, Emily, Grego...) le corresponde un sprite.")]
+    public CharacterPortrait[] portraits;
+
+    /// <summary>Asociación nombre-de-quien-habla → sprite a mostrar en el retrato.</summary>
+    [Serializable]
+    public class CharacterPortrait
+    {
+        public string speaker;
+        public Sprite sprite;
+    }
+
     private readonly Queue<string> lines = new Queue<string>();
     private Action onComplete;
     private bool isShowing;
@@ -77,8 +92,32 @@ public class DialoguePanel : MonoBehaviour
         }
 
         if (panelRoot != null) panelRoot.SetActive(true);
+        UpdatePortrait(speaker);
         SetPlayerControl(false);
         ShowNextLine();
+    }
+
+    /// <summary>Muestra el retrato del speaker (si hay uno mapeado) u oculta la imagen.</summary>
+    void UpdatePortrait(string speaker)
+    {
+        if (portraitImage == null) return;
+
+        Sprite sprite = null;
+        if (!string.IsNullOrEmpty(speaker) && portraits != null)
+        {
+            foreach (var p in portraits)
+            {
+                if (p != null && string.Equals(p.speaker, speaker, StringComparison.OrdinalIgnoreCase))
+                {
+                    sprite = p.sprite;
+                    break;
+                }
+            }
+        }
+
+        portraitImage.sprite = sprite;
+        portraitImage.preserveAspect = true;
+        portraitImage.gameObject.SetActive(sprite != null);
     }
 
     void Advance()

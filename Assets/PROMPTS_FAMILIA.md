@@ -8,10 +8,10 @@ desde los bordes y recorta los frames por componentes conexos, igual que con Oni
 
 ## Estilo base (incluir en TODOS los prompts)
 
-> pixel art sprite, 2D side-scroller platformer character, clean outline, flat cel
-> shading, limited palette, facing right, full body, centered, **plain solid white
-> background**, no shadow on the ground, consistent with a cute Boston Terrier dog hero
-> named Onix, same art style and proportions.
+pixel art sprite, 2D side-scroller platformer character, clean outline, flat cel
+shading, limited palette, facing right, full body, centered, **plain solid white
+background**, no shadow on the ground, consistent with a cute Boston Terrier dog hero
+named Onix, same art style and proportions.
 
 Consejos:
 - Pide **un solo personaje por imagen** (o una fila de frames de idle, bien separados).

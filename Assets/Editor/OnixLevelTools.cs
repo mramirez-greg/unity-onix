@@ -27,6 +27,11 @@ public static class OnixLevelTools
     const string SpikePrefab = "Assets/Prefab/trap_spike.prefab";
     const string BarrelPrefab = "Assets/Prefab/object_barrel_light_0.prefab";
 
+    // Sprites de familia/villano ya procesados por "Onix/Familia - Importar...".
+    const string FamilyProcessedDir = "Assets/sprites/Familia/Processed";
+    // Nombres de quienes pueden tener retrato (= nombre del archivo y del speaker en los diálogos).
+    static readonly string[] PortraitSpeakers = { "Grego", "Lilo", "Mao", "Kiwi", "Emily" };
+
     // Orden de escenas en el Build Settings.
     static readonly string[] SceneOrder =
     {
@@ -164,6 +169,8 @@ public static class OnixLevelTools
         lm.zoneName = StoryZone[idx];
         lm.introLines = StoryIntro[idx];
         lm.nextSceneName = StoryNextScene[idx];
+        // Kiwi es quien desata el conflicto en cada intro: su retrato aparece al empezar el nivel.
+        lm.introSpeaker = "Kiwi";
 
         // Configurar el FamilyMember (nombre, rescate y, en el Nivel 3, la confrontación con Kiwi).
         var fm = Object.FindFirstObjectByType<FamilyMember>();
@@ -252,6 +259,111 @@ public static class OnixLevelTools
         EditorBuildSettings.scenes = list.ToArray();
         Debug.Log("[Onix] Build Settings configurado en orden: " + string.Join(", ", found));
         EditorUtility.DisplayDialog("Onix", "Build Settings actualizado:\n" + string.Join("\n", found), "OK");
+    }
+
+    [MenuItem("Onix/Niveles - Anadir retratos (Kiwi, Emily, familia) al dialogo")]
+    static void AddPortraitsToDialogue()
+    {
+        var dp = Object.FindFirstObjectByType<DialoguePanel>();
+        if (dp == null)
+        {
+            EditorUtility.DisplayDialog("Onix",
+                "No hay DialoguePanel en la escena. Usa 'Añadir sistemas' primero (crea el panel de diálogo).", "OK");
+            return;
+        }
+
+        EnsureDialoguePortrait(dp);
+        dp.portraits = BuildPortraitTable(out var missing);
+        EditorUtility.SetDirty(dp);
+
+        // Para que Kiwi aparezca ya en la intro (escena inicial).
+        var lm = Object.FindFirstObjectByType<LevelManager>();
+        if (lm != null && string.IsNullOrEmpty(lm.introSpeaker))
+        {
+            lm.introSpeaker = "Kiwi";
+            EditorUtility.SetDirty(lm);
+        }
+
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        EditorSceneManager.SaveOpenScenes();
+
+        int loaded = dp.portraits.Length;
+        string msg = $"Retratos cableados: {loaded} ({string.Join(", ", dp.portraits.Select(p => p.speaker))}).";
+        if (missing.Count > 0)
+            msg += $"\n\nFaltan sprites en {FamilyProcessedDir} para: {string.Join(", ", missing)}.\n" +
+                   "Genera/importa esos PNG y vuelve a ejecutar este menú.";
+        Debug.Log("[Onix] " + msg);
+        EditorUtility.DisplayDialog("Onix", msg, "OK");
+    }
+
+    /// <summary>Construye la tabla speaker→sprite leyendo los PNG procesados de la familia/villano.</summary>
+    static DialoguePanel.CharacterPortrait[] BuildPortraitTable(out List<string> missing)
+    {
+        missing = new List<string>();
+        var list = new List<DialoguePanel.CharacterPortrait>();
+        foreach (var name in PortraitSpeakers)
+        {
+            var sprite = LoadProcessedSprite(name);
+            if (sprite != null)
+                list.Add(new DialoguePanel.CharacterPortrait { speaker = name, sprite = sprite });
+            else
+                missing.Add(name);
+        }
+        return list.ToArray();
+    }
+
+    static Sprite LoadProcessedSprite(string name)
+    {
+        string path = $"{FamilyProcessedDir}/{name}.png";
+        var s = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        if (s != null) return s;
+        // Si se importó como Multiple, el sprite principal puede ser null: toma el primer sub-sprite.
+        return AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Garantiza una Image "Portrait" a la izquierda del panel de diálogo y la cablea en
+    /// dp.portraitImage; desplaza el nombre y el cuerpo del texto para dejarle hueco.
+    /// </summary>
+    static void EnsureDialoguePortrait(DialoguePanel dp)
+    {
+        if (dp.panelRoot == null) return;
+        var panel = dp.panelRoot.transform;
+
+        var existing = panel.Find("Portrait");
+        GameObject go = existing != null ? existing.gameObject : new GameObject("Portrait", typeof(Image));
+        if (existing == null) go.transform.SetParent(panel, false);
+
+        var img = go.GetComponent<Image>();
+        img.preserveAspect = true;
+        img.raycastTarget = false;
+        var rt = img.rectTransform;
+        rt.anchorMin = new Vector2(0f, 0.5f);
+        rt.anchorMax = new Vector2(0f, 0.5f);
+        rt.pivot = new Vector2(0f, 0.5f);
+        rt.anchoredPosition = new Vector2(16f, 0f);
+        rt.sizeDelta = new Vector2(220f, 220f);
+        go.SetActive(false); // oculto hasta que hable alguien con retrato
+
+        dp.portraitImage = img;
+
+        // Dejar hueco al retrato: empujar el texto a la derecha (valor absoluto => idempotente).
+        SetLeftInset(panel, "DialogueText", 252f);
+        SetLeftInset(panel, "Speaker", 252f);
+    }
+
+    static void SetLeftInset(Transform panel, string childName, float left)
+    {
+        var t = panel.Find(childName);
+        if (t == null) return;
+        var rt = t.GetComponent<RectTransform>();
+        if (rt == null) return;
+        // Elemento estirado horizontalmente => mover offsetMin; si no, mover anchoredPosition.
+        if (Mathf.Abs(rt.anchorMin.x - rt.anchorMax.x) > 0.001f)
+            rt.offsetMin = new Vector2(left, rt.offsetMin.y);
+        else
+            rt.anchoredPosition = new Vector2(left, rt.anchoredPosition.y);
+        EditorUtility.SetDirty(rt);
     }
 
     // ============================================================ CONSTRUCTORES
@@ -495,6 +607,10 @@ public static class OnixLevelTools
         dp.panelRoot = panel;
         dp.dialogueText = body.GetComponent<TMP_Text>();
         dp.speakerText = speaker.GetComponent<TMP_Text>();
+
+        // Retrato del personaje que habla (Kiwi, Emily, familia) cableado desde el inicio.
+        EnsureDialoguePortrait(dp);
+        dp.portraits = BuildPortraitTable(out _);
 
         panel.SetActive(false);
     }

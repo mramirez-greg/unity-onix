@@ -21,6 +21,9 @@ public class LevelManager : MonoBehaviour
     public string nextSceneName = "";
 
     [Header("Introducción")]
+    [Tooltip("Quién narra/aparece en la intro (p.ej. 'Kiwi'). Vacío = sin retrato ni nombre.")]
+    public string introSpeaker = "";
+
     [TextArea(2, 5)]
     [Tooltip("Líneas del panel de historia que se muestran al empezar el nivel.")]
     public string[] introLines;
@@ -64,7 +67,7 @@ public class LevelManager : MonoBehaviour
 
         var dialogue = DialoguePanel.Instance;
         if (dialogue != null)
-            dialogue.Show(introLines, null);
+            dialogue.Show(introLines, null, string.IsNullOrEmpty(introSpeaker) ? null : introSpeaker);
         else
             Debug.LogWarning("[LevelManager] No hay DialoguePanel en la escena; se omite la intro.");
     }
