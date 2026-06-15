@@ -7,6 +7,7 @@ TagManager:
   - floor
   - Coin
   - Spikes
+  - Barrel
   layers:
   - Default
   - TransparentFX

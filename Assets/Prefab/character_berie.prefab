@@ -115,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2999629784655183404, guid: 75a79de09a9df1e49b3f6969962c1a94, type: 3}
+  m_Sprite: {fileID: 7561830350322641120, guid: e172f537021129d43b753e755c1b76a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -209,8 +209,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.004999995, y: 0.17}
-  m_Size: {x: 0.29, y: 0.34}
+  m_Offset: {x: 0, y: 0.19359756}
+  m_Size: {x: 0.28384146, y: 0.36783534}
   m_Direction: 0
 --- !u!114 &2212038556607620725
 MonoBehaviour:
@@ -231,3 +231,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  textCoins: {fileID: 0}
+  audioSource: {fileID: 0}
+  coinClip: {fileID: 0}
+  barrelClip: {fileID: 0}

@@ -32,6 +32,12 @@ public class Player : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        // Si no se asignó un AudioSource en el Inspector, intenta usar el del propio objeto.
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -63,10 +69,16 @@ public class Player : MonoBehaviour
     {
         if(collision.transform.CompareTag("Coin"))
         {
-            audioSource.PlayOneShot(coinClip);
+            if (audioSource != null && coinClip != null)
+            {
+                audioSource.PlayOneShot(coinClip);
+            }
             Destroy(collision.gameObject);
             coins++;
-            textCoins.text = coins.ToString();
+            if (textCoins != null)
+            {
+                textCoins.text = coins.ToString();
+            }
         }
 
         if (collision.transform.CompareTag("Spikes"))
@@ -76,7 +88,10 @@ public class Player : MonoBehaviour
 
         if(collision.transform.CompareTag("Barrel"))
         {
-            audioSource.PlayOneShot(barrelClip);
+            if (audioSource != null && barrelClip != null)
+            {
+                audioSource.PlayOneShot(barrelClip);
+            }
             Vector2 knockbackDir = (rb2D.position- (Vector2)collision.transform.position).normalized;
             rb2D.linearVelocity = Vector2.zero;
             rb2D.AddForce(knockbackDir*3,ForceMode2D.Impulse);

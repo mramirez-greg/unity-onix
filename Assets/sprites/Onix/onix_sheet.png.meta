@@ -1,0 +1,719 @@
+fileFormatVersion: 2
+guid: e172f537021129d43b753e755c1b76a5
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4447007902076917242
+    second: onix_sheet_0
+  - first:
+      213: 7561830350322641120
+    second: onix_idle_1
+  - first:
+      213: 2279597352078378943
+    second: onix_idle_2
+  - first:
+      213: 5452226759610674716
+    second: onix_idle_3
+  - first:
+      213: 9209578497567743136
+    second: onix_idle_4
+  - first:
+      213: -691451934046937212
+    second: onix_walk_1
+  - first:
+      213: 1955635686398044098
+    second: onix_walk_2
+  - first:
+      213: 5383466131037278840
+    second: onix_walk_3
+  - first:
+      213: 1993120622595484944
+    second: onix_walk_4
+  - first:
+      213: -7946899692638428998
+    second: onix_walk_5
+  - first:
+      213: 3597052557957745447
+    second: onix_walk_6
+  - first:
+      213: -2770262611318563742
+    second: onix_walk_7
+  - first:
+      213: 2448850210018382915
+    second: onix_run_1
+  - first:
+      213: -2379556392476597103
+    second: onix_run_2
+  - first:
+      213: -8436254745444065443
+    second: onix_run_3
+  - first:
+      213: -8972904301203456532
+    second: onix_run_4
+  - first:
+      213: -6967457224653144190
+    second: onix_run_5
+  - first:
+      213: -7852723824612829867
+    second: onix_run_6
+  - first:
+      213: -4252208662532734802
+    second: onix_run_7
+  - first:
+      213: 8775378195833887470
+    second: onix_run_8
+  - first:
+      213: -4098471221205659925
+    second: onix_jump_1
+  - first:
+      213: 5702631862552936309
+    second: onix_jump_2
+  - first:
+      213: 5504625929819760659
+    second: onix_fall_1
+  - first:
+      213: 2570232642770525904
+    second: onix_fall_2
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 328
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: onix_idle_1
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 692
+        width: 133
+        height: 127
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8afbaa3a401f860800000000000000
+      internalID: 7561830350322641120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_idle_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 691
+        width: 134
+        height: 129
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb78d81c6b1c2af10800000000000000
+      internalID: 2279597352078378943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_idle_3
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 692
+        width: 132
+        height: 129
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1e2979c9533aab40800000000000000
+      internalID: 5452226759610674716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_idle_4
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 690
+        width: 134
+        height: 131
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0acd99e59defecf70800000000000000
+      internalID: 9209578497567743136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_1
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 515
+        width: 153
+        height: 128
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f10e321287766f0800000000000000
+      internalID: -691451934046937212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 522
+        width: 140
+        height: 121
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c725dd9b40d32b10800000000000000
+      internalID: 1955635686398044098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_3
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 522
+        width: 139
+        height: 121
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 872d2d06ce9e5ba40800000000000000
+      internalID: 5383466131037278840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_4
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 522
+        width: 147
+        height: 120
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01d2f4075acf8ab10800000000000000
+      internalID: 1993120622595484944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_5
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 521
+        width: 142
+        height: 122
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab020a285d0f6b190800000000000000
+      internalID: -7946899692638428998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_6
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 522
+        width: 154
+        height: 121
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72b4b735e3c4be130800000000000000
+      internalID: 3597052557957745447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_walk_7
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 522
+        width: 133
+        height: 122
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26c9fcd15dc0e89d0800000000000000
+      internalID: -2770262611318563742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_1
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 359
+        width: 134
+        height: 114
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 344594c9a401cf120800000000000000
+      internalID: 2448850210018382915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_2
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 360
+        width: 134
+        height: 113
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1942c67811e1afed0800000000000000
+      internalID: -2379556392476597103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_3
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 360
+        width: 135
+        height: 120
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f5a1791076cea80800000000000000
+      internalID: -8436254745444065443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_4
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 366
+        width: 163
+        height: 107
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ced713b1417d97380800000000000000
+      internalID: -8972904301203456532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_5
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 358
+        width: 153
+        height: 118
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28ff1d0c19e9e4f90800000000000000
+      internalID: -6967457224653144190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_6
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 365
+        width: 162
+        height: 117
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55594ba7945850390800000000000000
+      internalID: -7852723824612829867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_7
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 360
+        width: 165
+        height: 110
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea0c5e620ce1df4c0800000000000000
+      internalID: -4252208662532734802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_run_8
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 361
+        width: 166
+        height: 120
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eea1364a9f768c970800000000000000
+      internalID: 8775378195833887470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_jump_1
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 179
+        width: 147
+        height: 151
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bee00e1932e4f17c0800000000000000
+      internalID: -4098471221205659925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_jump_2
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 180
+        width: 151
+        height: 157
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57fba441771d32f40800000000000000
+      internalID: 5702631862552936309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_fall_1
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 23
+        width: 184
+        height: 116
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 318af405e1c546c40800000000000000
+      internalID: 5504625929819760659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onix_fall_2
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 14
+        width: 172
+        height: 117
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0de537e88fc4ba320800000000000000
+      internalID: 2570232642770525904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      onix_fall_1: 5504625929819760659
+      onix_fall_2: 2570232642770525904
+      onix_idle_1: 7561830350322641120
+      onix_idle_2: 2279597352078378943
+      onix_idle_3: 5452226759610674716
+      onix_idle_4: 9209578497567743136
+      onix_jump_1: -4098471221205659925
+      onix_jump_2: 5702631862552936309
+      onix_run_1: 2448850210018382915
+      onix_run_2: -2379556392476597103
+      onix_run_3: -8436254745444065443
+      onix_run_4: -8972904301203456532
+      onix_run_5: -6967457224653144190
+      onix_run_6: -7852723824612829867
+      onix_run_7: -4252208662532734802
+      onix_run_8: 8775378195833887470
+      onix_sheet_0: -4447007902076917242
+      onix_walk_1: -691451934046937212
+      onix_walk_2: 1955635686398044098
+      onix_walk_3: 5383466131037278840
+      onix_walk_4: 1993120622595484944
+      onix_walk_5: -7946899692638428998
+      onix_walk_6: 3597052557957745447
+      onix_walk_7: -2770262611318563742
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
