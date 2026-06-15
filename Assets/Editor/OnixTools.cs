@@ -187,53 +187,8 @@ public static class OnixTools
                 return;
             }
 
-            // OJO: LoadImage con un JPEG (sin alfa) convierte la textura a RGB24 y descarta el
-            // canal alfa. Por eso leemos los píxeles aquí y luego los escribimos en una textura
-            // NUEVA RGBA32, para que la transparencia sí se conserve al guardar el PNG.
-            var src0 = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            src0.LoadImage(File.ReadAllBytes(src));
-            int w = src0.width, h = src0.height;
-            var px = src0.GetPixels32();
-
-            // Flood-fill desde los bordes: vuelve transparente todo el fondo (cuadriculado claro)
-            // conectado al borde. El blanco interior del perro queda intacto porque está rodeado
-            // por su contorno oscuro y no se alcanza desde el borde.
-            var isBg = new bool[w * h];
-            var stack = new Stack<int>();
-
-            void Seed(int x, int y)
-            {
-                int i = y * w + x;
-                if (!isBg[i] && IsBackground(px[i])) { isBg[i] = true; stack.Push(i); }
-            }
-            for (int x = 0; x < w; x++) { Seed(x, 0); Seed(x, h - 1); }
-            for (int y = 0; y < h; y++) { Seed(0, y); Seed(w - 1, y); }
-
-            while (stack.Count > 0)
-            {
-                int i = stack.Pop();
-                int x = i % w, y = i / w;
-                if (x > 0) Seed(x - 1, y);
-                if (x < w - 1) Seed(x + 1, y);
-                if (y > 0) Seed(x, y - 1);
-                if (y < h - 1) Seed(x, y + 1);
-            }
-
-            int removed = 0;
-            for (int i = 0; i < px.Length; i++)
-            {
-                if (isBg[i]) { px[i].a = 0; removed++; }
-            }
-
-            // Textura nueva RGBA32 para conservar la transparencia en el PNG.
-            var outTex = new Texture2D(w, h, TextureFormat.RGBA32, false);
-            outTex.SetPixels32(px);
-            outTex.Apply();
-
-            Directory.CreateDirectory(Path.Combine(projectRoot, OutDir.Replace('/', Path.DirectorySeparatorChar)));
-            File.WriteAllBytes(Path.Combine(projectRoot, PngPath.Replace('/', Path.DirectorySeparatorChar)), outTex.EncodeToPNG());
-            AssetDatabase.Refresh();
-            Debug.Log($"[Onix] PNG transparente creado en {PngPath} ({removed} píxeles de fondo eliminados de {w}x{h}).");
+            int removed = ProcessSheetToTransparentPng(src, PngPath);
+            Debug.Log($"[Onix] PNG transparente creado en {PngPath} ({removed} píxeles de fondo eliminados).");
         }
         catch (System.Exception e)
         {
@@ -241,12 +196,216 @@ public static class OnixTools
         }
     }
 
+    // ---------------------------------------------------- HELPERS REUTILIZABLES (imagen)
+
+    /// <summary>
+    /// Lee una imagen (PNG/JPEG) de disco, vuelve transparente el fondo conectado a los
+    /// bordes (flood-fill) y la guarda como PNG RGBA32 en outAssetPath (ruta de proyecto
+    /// "Assets/..."). Devuelve el número de píxeles de fondo eliminados.
+    /// Reutilizable para Onix y para cualquier personaje (familia, villano, hueso).
+    /// </summary>
+    public static int ProcessSheetToTransparentPng(string srcAbsPath, string outAssetPath)
+    {
+        var projectRoot = Directory.GetParent(Application.dataPath).FullName;
+
+        // LoadImage con un JPEG (sin alfa) convierte la textura a RGB24 y descarta el canal
+        // alfa. Por eso escribimos los píxeles en una textura NUEVA RGBA32, para conservar
+        // la transparencia al guardar el PNG.
+        var src0 = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+        src0.LoadImage(File.ReadAllBytes(srcAbsPath));
+        int w = src0.width, h = src0.height;
+        var px = src0.GetPixels32();
+
+        int removed = RemoveBackgroundFloodFill(px, w, h);
+
+        var outTex = new Texture2D(w, h, TextureFormat.RGBA32, false);
+        outTex.SetPixels32(px);
+        outTex.Apply();
+
+        var outAbs = Path.Combine(projectRoot, outAssetPath.Replace('/', Path.DirectorySeparatorChar));
+        Directory.CreateDirectory(Path.GetDirectoryName(outAbs));
+        File.WriteAllBytes(outAbs, outTex.EncodeToPNG());
+        AssetDatabase.ImportAsset(outAssetPath, ImportAssetOptions.ForceUpdate);
+        return removed;
+    }
+
+    /// <summary>
+    /// Flood-fill desde los bordes: pone alfa=0 a todo el fondo (claro y poco saturado)
+    /// conectado al borde de la imagen. El interior claro del personaje queda intacto
+    /// porque está rodeado por su contorno y no se alcanza desde el borde.
+    /// Modifica el arreglo px in situ y devuelve cuántos píxeles se volvieron transparentes.
+    /// </summary>
+    public static int RemoveBackgroundFloodFill(Color32[] px, int w, int h)
+    {
+        var isBg = new bool[w * h];
+        var stack = new Stack<int>();
+
+        void Seed(int x, int y)
+        {
+            int i = y * w + x;
+            if (!isBg[i] && IsBackground(px[i])) { isBg[i] = true; stack.Push(i); }
+        }
+        for (int x = 0; x < w; x++) { Seed(x, 0); Seed(x, h - 1); }
+        for (int y = 0; y < h; y++) { Seed(0, y); Seed(w - 1, y); }
+
+        while (stack.Count > 0)
+        {
+            int i = stack.Pop();
+            int x = i % w, y = i / w;
+            if (x > 0) Seed(x - 1, y);
+            if (x < w - 1) Seed(x + 1, y);
+            if (y > 0) Seed(x, y - 1);
+            if (y < h - 1) Seed(x, y + 1);
+        }
+
+        int removed = 0;
+        for (int i = 0; i < px.Length; i++)
+            if (isBg[i]) { px[i].a = 0; removed++; }
+        return removed;
+    }
+
     static bool IsBackground(Color32 c)
     {
         int mx = Mathf.Max(c.r, Mathf.Max(c.g, c.b));
         int mn = Mathf.Min(c.r, Mathf.Min(c.g, c.b));
-        // Claro y poco saturado = cuadriculado de fondo (blanco o gris claro).
-        return mx >= 170 && (mx - mn) <= 30;
+        // Claro y poco saturado = fondo (blanco/gris claro). También magenta puro (#FF00FF)
+        // como color de fondo "chroma" típico de sprites.
+        bool lightUnsaturated = mx >= 170 && (mx - mn) <= 30;
+        bool magenta = c.r >= 200 && c.b >= 200 && c.g <= 80;
+        return lightUnsaturated || magenta;
+    }
+
+    // ----------------------------------------------- FAMILIA / VILLANO: importar sprites
+
+    const string FamilyDir = "Assets/sprites/Familia";
+
+    [MenuItem("Onix/Familia - Importar sprites de familia y villano")]
+    static void ImportFamily()
+    {
+        try
+        {
+            var projectRoot = Directory.GetParent(Application.dataPath).FullName;
+            var familyAbs = Path.Combine(projectRoot, FamilyDir.Replace('/', Path.DirectorySeparatorChar));
+            if (!Directory.Exists(familyAbs))
+            {
+                Directory.CreateDirectory(familyAbs);
+                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("Onix",
+                    $"Creé la carpeta {FamilyDir}.\n\nColoca ahí los PNG/JPEG generados por IA " +
+                    "(Grego, Lilo, Mao, Kiwi, hueso) y vuelve a ejecutar este menú.\n\n" +
+                    "Guía de prompts: Assets/PROMPTS_FAMILIA.md", "OK");
+                return;
+            }
+
+            // Buscar imágenes fuente (ignorando la subcarpeta Processed que generamos nosotros).
+            var exts = new[] { ".png", ".jpg", ".jpeg" };
+            var files = Directory.GetFiles(familyAbs)
+                .Where(f => exts.Contains(Path.GetExtension(f).ToLowerInvariant()))
+                .ToList();
+
+            if (files.Count == 0)
+            {
+                EditorUtility.DisplayDialog("Onix",
+                    $"No hay imágenes en {FamilyDir}. Coloca los sprites y reintenta.\n\n" +
+                    "Guía de prompts: Assets/PROMPTS_FAMILIA.md", "OK");
+                return;
+            }
+
+            int ok = 0;
+            foreach (var srcAbs in files)
+            {
+                string baseName = Path.GetFileNameWithoutExtension(srcAbs);
+                string outAsset = $"{FamilyDir}/Processed/{baseName}.png";
+                ProcessSheetToTransparentPng(srcAbs, outAsset);
+                ImportCharacterSprite(outAsset, baseName);
+                ok++;
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log($"[Onix] Importé {ok} sprite(s) de familia/villano a {FamilyDir}/Processed. " +
+                      "Asigna cada uno al SpriteRenderer del FamilyMember correspondiente.");
+            EditorUtility.DisplayDialog("Onix",
+                $"Listo: {ok} personaje(s) procesado(s) en {FamilyDir}/Processed.\n\n" +
+                "Ahora asigna cada sprite al FamilyMember de su nivel (o haz reskin del Coin para el hueso).", "OK");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("[Onix] Error al importar familia: " + e);
+        }
+    }
+
+    /// <summary>
+    /// Importa un PNG transparente como Sprite. Si detecta varios frames grandes en fila
+    /// los recorta como Multiple (idle animado); si hay uno solo, lo deja como Single.
+    /// El pivote es inferior-centro y el PPU se calcula para un alto ~TargetHeightUnits.
+    /// </summary>
+    static void ImportCharacterSprite(string pngAsset, string baseName)
+    {
+        var importer = (TextureImporter)AssetImporter.GetAtPath(pngAsset);
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.filterMode = FilterMode.Point;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
+        importer.mipmapEnabled = false;
+        importer.isReadable = true;
+        importer.SaveAndReimport();
+
+        var tex = AssetDatabase.LoadAssetAtPath<Texture2D>(pngAsset);
+        int w = tex.width, h = tex.height;
+        var px = tex.GetPixels32();
+
+        var (labels, allBoxes) = FindComponents(px, w, h);
+        if (allBoxes.Count == 0)
+        {
+            Debug.LogWarning($"[Onix] {baseName}: PNG sin píxeles opacos, se omite.");
+            return;
+        }
+
+        // Conservar solo los componentes grandes (descarta texto/manchas).
+        float maxArea = allBoxes.Max(b => b.Area);
+        var boxes = allBoxes.Where(b => b.Area >= maxArea * 0.12f && b.W >= 8 && b.H >= 8)
+                            .OrderBy(b => b.MinX).ToList();
+        if (boxes.Count == 0) boxes = new List<Box> { allBoxes.OrderByDescending(b => b.Area).First() };
+
+        // Limpiar todo lo que no sea un frame válido y reescribir el PNG.
+        var keep = new HashSet<int>(boxes.Select(b => b.Label));
+        var clean = new Color32[px.Length];
+        for (int i = 0; i < px.Length; i++)
+            clean[i] = (labels[i] >= 0 && keep.Contains(labels[i])) ? px[i] : new Color32(0, 0, 0, 0);
+        var cleanTex = new Texture2D(w, h, TextureFormat.RGBA32, false);
+        cleanTex.SetPixels32(clean);
+        cleanTex.Apply();
+        File.WriteAllBytes(
+            Path.Combine(Directory.GetParent(Application.dataPath).FullName, pngAsset.Replace('/', Path.DirectorySeparatorChar)),
+            cleanTex.EncodeToPNG());
+        AssetDatabase.ImportAsset(pngAsset, ImportAssetOptions.ForceUpdate);
+        importer = (TextureImporter)AssetImporter.GetAtPath(pngAsset);
+
+        float tallest = boxes.Max(b => b.H);
+        float ppu = Mathf.Clamp(Mathf.Round(tallest / TargetHeightUnits), 16f, 512f);
+        importer.spritePixelsPerUnit = ppu;
+
+        var metas = new List<SpriteMetaData>();
+        for (int f = 0; f < boxes.Count; f++)
+        {
+            var b = boxes[f];
+            metas.Add(new SpriteMetaData
+            {
+                name = boxes.Count == 1 ? baseName : $"{baseName}_{f + 1}",
+                rect = new Rect(b.MinX, b.MinY, b.W, b.H),
+                alignment = (int)SpriteAlignment.BottomCenter,
+                pivot = new Vector2(0.5f, 0f),
+                border = Vector4.zero,
+            });
+        }
+
+        // Un solo frame => Single (más cómodo para asignarlo); varios => Multiple animado.
+        importer.spriteImportMode = boxes.Count == 1 ? SpriteImportMode.Single : SpriteImportMode.Multiple;
+#pragma warning disable CS0618
+        if (boxes.Count > 1) importer.spritesheet = metas.ToArray();
+#pragma warning restore CS0618
+        importer.SaveAndReimport();
     }
 
     // ------------------------------------------------------- 3. SPRITES Y ANIMACIONES

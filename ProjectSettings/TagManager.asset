@@ -8,6 +8,9 @@ TagManager:
   - Coin
   - Spikes
   - Barrel
+  - Family
+  - Bone
+  - Player
   layers:
   - Default
   - TransparentFX
