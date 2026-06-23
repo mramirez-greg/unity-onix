@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: 9ce2e84edf781f44a92f681db86ba692
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9085393786512728732
+    second: Ground tile set 00_0
+  - first:
+      213: -9129303360444321984
+    second: Ground tile set 00_1
+  - first:
+      213: 2572491408022647724
+    second: Ground tile set 00_2
+  - first:
+      213: 4023748761605838863
+    second: Ground tile set 00_3
+  - first:
+      213: 6635481810049935620
+    second: Ground tile set 00_4
+  - first:
+      213: -4280423673026386867
+    second: Ground tile set 00_5
+  - first:
+      213: 6137038304096974531
+    second: Ground tile set 00_6
+  - first:
+      213: 4347132410747618165
+    second: Ground tile set 00_7
+  - first:
+      213: 9144025639448174543
+    second: Ground tile set 00_8
+  - first:
+      213: -7081473848118886260
+    second: Ground tile set 00_9
+  - first:
+      213: -7394446749908439611
+    second: Ground tile set 00_10
+  - first:
+      213: -7570211736286889064
+    second: Ground tile set 00_11
+  - first:
+      213: -6215898932395298132
+    second: Ground tile set 00_12
+  - first:
+      213: 5258338173919660595
+    second: Ground tile set 00_13
+  - first:
+      213: -815865401774127667
+    second: Ground tile set 00_14
+  - first:
+      213: -8683352492889269816
+    second: Ground tile set 00_15
+  - first:
+      213: -6070498912196383481
+    second: Ground tile set 00_16
+  - first:
+      213: 3748028183218474937
+    second: Ground tile set 00_17
+  - first:
+      213: 1363756334485355589
+    second: Ground tile set 00_18
+  - first:
+      213: 1573906440828832400
+    second: Ground tile set 00_19
+  - first:
+      213: -688808486734386910
+    second: Ground tile set 00_20
+  - first:
+      213: 1182292949200980373
+    second: Ground tile set 00_21
+  - first:
+      213: 1533238022731412479
+    second: Ground tile set 00_22
+  - first:
+      213: -4455591901733461041
+    second: Ground tile set 00_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ground tile set 00_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 160
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92e1a9238dc51e70800000000000000
+      internalID: 9085393786512728732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 160
+        width: 34
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04fafe976f23e4180800000000000000
+      internalID: -9129303360444321984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 34
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca33fe25e4353b320800000000000000
+      internalID: 2572491408022647724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 127
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f081fe01e2a37d730800000000000000
+      internalID: 4023748761605838863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_4
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 160
+        width: 17
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 409a799cc87f51c50800000000000000
+      internalID: 6635481810049935620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 127
+        width: 16
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d44e6191951e894c0800000000000000
+      internalID: -4280423673026386867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_6
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 99
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c67aa872d32b2550800000000000000
+      internalID: 6137038304096974531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_7
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 127
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 573033e35ed145c30800000000000000
+      internalID: 4347132410747618165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_8
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 99
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcf5f583fda16ee70800000000000000
+      internalID: 9144025639448174543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 99
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c80c7aced0d89bd90800000000000000
+      internalID: -7081473848118886260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_10
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 127
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cd6a21cbd5a16990800000000000000
+      internalID: -7394446749908439611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_11
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 99
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89b7028d88431f690800000000000000
+      internalID: -7570211736286889064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_12
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 68
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca239deaad0bcb9a0800000000000000
+      internalID: -6215898932395298132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_13
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 68
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a8b5595be59f840800000000000000
+      internalID: 5258338173919660595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 68
+        width: 34
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc5c8be5db67da4f0800000000000000
+      internalID: -815865401774127667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_15
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 68
+        width: 16
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c915d10ae88e7780800000000000000
+      internalID: -8683352492889269816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_16
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 39
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70da329f66141cba0800000000000000
+      internalID: -6070498912196383481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_17
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 39
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bfc3e456cba30430800000000000000
+      internalID: 3748028183218474937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 39
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54c303529290de210800000000000000
+      internalID: 1363756334485355589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_19
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 39
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a4d4ba193a7d510800000000000000
+      internalID: 1573906440828832400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_20
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 10
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2292ceda45cd076f0800000000000000
+      internalID: -688808486734386910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_21
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 10
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 599c2995c29586010800000000000000
+      internalID: 1182292949200980373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_22
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 10
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff33705bbd7274510800000000000000
+      internalID: 1533238022731412479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground tile set 00_23
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 10
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc3e119a5ce8a22c0800000000000000
+      internalID: -4455591901733461041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Ground tile set 00_0: 9085393786512728732
+      Ground tile set 00_1: -9129303360444321984
+      Ground tile set 00_10: -7394446749908439611
+      Ground tile set 00_11: -7570211736286889064
+      Ground tile set 00_12: -6215898932395298132
+      Ground tile set 00_13: 5258338173919660595
+      Ground tile set 00_14: -815865401774127667
+      Ground tile set 00_15: -8683352492889269816
+      Ground tile set 00_16: -6070498912196383481
+      Ground tile set 00_17: 3748028183218474937
+      Ground tile set 00_18: 1363756334485355589
+      Ground tile set 00_19: 1573906440828832400
+      Ground tile set 00_2: 2572491408022647724
+      Ground tile set 00_20: -688808486734386910
+      Ground tile set 00_21: 1182292949200980373
+      Ground tile set 00_22: 1533238022731412479
+      Ground tile set 00_23: -4455591901733461041
+      Ground tile set 00_3: 4023748761605838863
+      Ground tile set 00_4: 6635481810049935620
+      Ground tile set 00_5: -4280423673026386867
+      Ground tile set 00_6: 6137038304096974531
+      Ground tile set 00_7: 4347132410747618165
+      Ground tile set 00_8: 9144025639448174543
+      Ground tile set 00_9: -7081473848118886260
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -4,8 +4,10 @@ using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 /// <summary>
@@ -26,6 +28,16 @@ public static class OnixLevelTools
     const string CoinPrefab = "Assets/Prefab/Coin.prefab";
     const string SpikePrefab = "Assets/Prefab/trap_spike.prefab";
     const string BarrelPrefab = "Assets/Prefab/object_barrel_light_0.prefab";
+
+    // Tileset "forest" de la selva (ya importado, recortado como Multiple, PPU 100).
+    const string SelvaRoot = "Assets/sprites/selva";
+    const string ForestRoot = SelvaRoot + "/sprites selva/Forest tileset";
+    const string GroundDir = ForestRoot + "/Tile-set/Ground";
+    const string TrunksDir = ForestRoot + "/Tile-set/Trunks";
+    const string SelvaBg = ForestRoot + "/Tile-set/Background/Background 01.png";
+    const string SelvaTiles = SelvaRoot + "/Tiles";     // se crea
+    const string SelvaPaletteDir = SelvaRoot + "/Palette"; // se crea
+    const string SelvaPalettePath = SelvaPaletteDir + "/Selva Palette.prefab";
 
     // Sprites de familia/villano ya procesados por "Onix/Familia - Importar...".
     const string FamilyProcessedDir = "Assets/sprites/Familia/Processed";
@@ -813,6 +825,225 @@ public static class OnixLevelTools
         "\"Estás castigada: ¡a tu habitación ahora mismo!\"",
         "Kiwi se va cabizbaja a su cuarto. ¡Onix por fin reunió a su familia, felices para siempre!"
     };
+
+    // ============================================================ SELVA (tileset forest)
+    // Flujo híbrido para el Nivel 2: import nítido + tiles/paleta para el suelo, y helpers de
+    // escena (Grid+Tilemap en capa Floor, fondo, y convertir Presets en plataformas sólidas).
+
+    [MenuItem("Onix/Selva - 1) Preparar import del tileset")]
+    static void PrepareForestImport()
+    {
+        if (!AssetDatabase.IsValidFolder(ForestRoot))
+        {
+            EditorUtility.DisplayDialog("Onix",
+                $"No encontré el tileset en {ForestRoot}. Verifica que la carpeta exista.", "OK");
+            return;
+        }
+
+        int n = 0;
+        foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { ForestRoot }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            if (!(AssetImporter.GetAtPath(path) is TextureImporter ti)) continue;
+            // Pixel-art consistente. Respeta el slicing ya existente (no toca spriteImportMode).
+            ti.textureType = TextureImporterType.Sprite;
+            ti.spritePixelsPerUnit = 100;
+            ti.filterMode = FilterMode.Point;
+            ti.mipmapEnabled = false;
+            ti.textureCompression = TextureImporterCompression.Uncompressed;
+            ti.SaveAndReimport();
+            n++;
+        }
+
+        Debug.Log($"[Onix] Import de selva preparado en {n} texturas (Point, sin compresión, PPU 100).");
+        EditorUtility.DisplayDialog("Onix",
+            $"Listo: {n} texturas del tileset forest quedaron nítidas (Point, sin compresión, PPU 100).\n\n" +
+            "Siguiente: 'Onix/Selva - 2) Generar tiles y paleta'.", "OK");
+    }
+
+    [MenuItem("Onix/Selva - 2) Generar tiles y paleta")]
+    static void GenerateForestTilesAndPalette()
+    {
+        if (!AssetDatabase.IsValidFolder(SelvaTiles))
+            AssetDatabase.CreateFolder(SelvaRoot, "Tiles");
+
+        // Un Tile por sub-sprite de Ground y Trunks (terreno modular para pintar).
+        var tiles = new List<Tile>();
+        foreach (var dir in new[] { GroundDir, TrunksDir })
+        {
+            if (!AssetDatabase.IsValidFolder(dir)) continue;
+            foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { dir }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                foreach (var s in AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>())
+                {
+                    string tilePath = $"{SelvaTiles}/{s.name}.asset";
+                    var tile = AssetDatabase.LoadAssetAtPath<Tile>(tilePath);
+                    if (tile == null)
+                    {
+                        tile = ScriptableObject.CreateInstance<Tile>();
+                        tile.sprite = s;
+                        tile.colliderType = Tile.ColliderType.Sprite;
+                        AssetDatabase.CreateAsset(tile, tilePath);
+                    }
+                    tiles.Add(tile);
+                }
+            }
+        }
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        bool paletteOk = TryCreateForestPalette(tiles);
+
+        string msg = $"Generados {tiles.Count} tiles en {SelvaTiles}.\n\n";
+        msg += paletteOk
+            ? "Paleta 'Selva' creada en " + SelvaPaletteDir + ".\n\nAbre Window > 2D > Tile Palette y elígela."
+            : "No pude crear la paleta automáticamente.\n\nAbre Window > 2D > Tile Palette > Create New " +
+              "Palette y arrastra la carpeta '" + SelvaTiles + "' (o el atlas Ground) para llenarla.";
+        Debug.Log("[Onix] " + msg);
+        EditorUtility.DisplayDialog("Onix", msg, "OK");
+    }
+
+    /// <summary>
+    /// Crea (best-effort) un prefab de Tile Palette con los tiles colocados en rejilla y lo marca
+    /// como paleta añadiéndole un GridPalette como sub-asset. Si algo falla, devuelve false y el
+    /// usuario crea la paleta a mano (los tiles ya están generados).
+    /// </summary>
+    static bool TryCreateForestPalette(List<Tile> tiles)
+    {
+        if (tiles.Count == 0) return false;
+        try
+        {
+            if (!AssetDatabase.IsValidFolder(SelvaPaletteDir))
+                AssetDatabase.CreateFolder(SelvaRoot, "Palette");
+
+            var root = new GameObject("Selva Palette", typeof(Grid));
+            root.GetComponent<Grid>().cellSize = new Vector3(0.32f, 0.32f, 0f);
+            var layer = new GameObject("Layer1", typeof(Tilemap), typeof(TilemapRenderer));
+            layer.transform.SetParent(root.transform, false);
+            var tm = layer.GetComponent<Tilemap>();
+
+            const int cols = 8;
+            for (int i = 0; i < tiles.Count; i++)
+                tm.SetTile(new Vector3Int(i % cols, -(i / cols), 0), tiles[i]);
+
+            PrefabUtility.SaveAsPrefabAsset(root, SelvaPalettePath);
+            Object.DestroyImmediate(root);
+
+            // Marcar el prefab como paleta (GridPalette sub-asset) si no lo tiene ya.
+            if (!AssetDatabase.LoadAllAssetsAtPath(SelvaPalettePath).OfType<GridPalette>().Any())
+            {
+                var gp = ScriptableObject.CreateInstance<GridPalette>();
+                gp.name = "Selva Palette";
+                gp.cellSizing = GridPalette.CellSizing.Automatic;
+                AssetDatabase.AddObjectToAsset(gp, SelvaPalettePath);
+                AssetDatabase.ImportAsset(SelvaPalettePath);
+            }
+            AssetDatabase.SaveAssets();
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("[Onix] No pude crear la paleta automáticamente: " + e.Message);
+            return false;
+        }
+    }
+
+    [MenuItem("Onix/Selva - 3) Preparar escena Level2 (grid + fondo)")]
+    static void PrepareSelvaScene()
+    {
+        var scene = SceneManager.GetActiveScene();
+        EnsureSelvaTilemap();
+        EnsureSelvaBackground();
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveOpenScenes();
+        Debug.Log("[Onix] Escena de selva preparada: Grid/Tilemap_Suelo (capa Floor) + Escenario/Background.");
+        EditorUtility.DisplayDialog("Onix",
+            "Listo. En la Hierarchy verás 'Grid/Tilemap_Suelo' y 'Escenario/Background'.\n\n" +
+            "Abre Window > 2D > Tile Palette, elige la paleta 'Selva' y pinta el suelo sobre " +
+            "'Tilemap_Suelo'. Borra 'Floor_Basic' cuando termines.", "OK");
+    }
+
+    /// <summary>Grid (cellSize 0.32 como Level1) + Tilemap del suelo en capa Floor con collider.</summary>
+    static void EnsureSelvaTilemap()
+    {
+        var gridGO = GameObject.Find("Grid");
+        if (gridGO == null || gridGO.GetComponent<Grid>() == null)
+        {
+            gridGO = new GameObject("Grid", typeof(Grid));
+            gridGO.GetComponent<Grid>().cellSize = new Vector3(0.32f, 0.32f, 0f);
+        }
+
+        if (gridGO.transform.Find("Tilemap_Suelo") != null) return;
+
+        var tm = new GameObject("Tilemap_Suelo",
+            typeof(Tilemap), typeof(TilemapRenderer), typeof(TilemapCollider2D));
+        tm.transform.SetParent(gridGO.transform, false);
+        int floor = LayerMask.NameToLayer("Floor");
+        if (floor >= 0) tm.layer = floor;     // para que el Player lo detecte como suelo
+        tm.tag = "floor";
+        tm.GetComponent<TilemapRenderer>().sortingOrder = 0;
+    }
+
+    /// <summary>Fondo de selva (Background 01) detrás de todo, escalado para cubrir la cámara.</summary>
+    static void EnsureSelvaBackground()
+    {
+        var parent = GameObject.Find("Escenario") ?? new GameObject("Escenario");
+        var existing = parent.transform.Find("Background");
+        GameObject bg = existing != null ? existing.gameObject : new GameObject("Background", typeof(SpriteRenderer));
+        if (existing == null) bg.transform.SetParent(parent.transform, false);
+
+        var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(SelvaBg)
+                     ?? AssetDatabase.LoadAllAssetsAtPath(SelvaBg).OfType<Sprite>().FirstOrDefault();
+        if (sprite == null)
+        {
+            Debug.LogWarning($"[Onix] No encontré el sprite de fondo en {SelvaBg}.");
+            return;
+        }
+
+        var sr = bg.GetComponent<SpriteRenderer>();
+        sr.sprite = sprite;
+        sr.sortingOrder = -10;
+
+        var cam = Camera.main;
+        float worldH = (cam != null && cam.orthographic) ? cam.orthographicSize * 2f : 6f;
+        float spriteH = sprite.bounds.size.y;
+        if (spriteH > 0.01f)
+        {
+            float scale = worldH / spriteH;
+            bg.transform.localScale = new Vector3(scale, scale, 1f);
+        }
+        bg.transform.position = cam != null
+            ? new Vector3(cam.transform.position.x, cam.transform.position.y, 0f)
+            : Vector3.zero;
+    }
+
+    [MenuItem("Onix/Selva - Hacer solida la seleccion (plataforma)")]
+    static void MakeSelectionSolid()
+    {
+        int n = 0;
+        int floor = LayerMask.NameToLayer("Floor");
+        foreach (var go in Selection.gameObjects)
+        {
+            if (go.GetComponent<SpriteRenderer>() == null) continue;
+            if (go.GetComponent<Collider2D>() == null)
+                go.AddComponent<BoxCollider2D>(); // se auto-ajusta al sprite al añadirse
+            if (floor >= 0) go.layer = floor;
+            n++;
+        }
+
+        if (n == 0)
+        {
+            EditorUtility.DisplayDialog("Onix",
+                "Selecciona en la Hierarchy uno o más objetos con SpriteRenderer " +
+                "(p. ej. un Preset que arrastraste a la escena).", "OK");
+            return;
+        }
+
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        Debug.Log($"[Onix] {n} objeto(s) convertidos en plataforma sólida (BoxCollider2D + capa Floor).");
+    }
 
     // Sprite blanco reutilizable para fondos sólidos (piso, placeholders). El color se aplica
     // como tinte en el SpriteRenderer.color de cada usuario.
